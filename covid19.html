@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covid-19 簡易式疫情現況</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">  <!--連接圖標資料庫-->>
+</head>
+<body onload="countrySelect()">
+    
+    <div class="container-grid">
+        <div class="items item1">
+            <h3>Covid-19 簡易疫情現況系統</h3>
+            <select id="mySelect" class="dropdown" onchange="countrySelect()">
+
+       
+            <option value="Taiwan">台灣</option>
+            <option value="USA">美國</option>
+            <option value="China">中國大陸</option>
+            <option value="Japan">日本</option>
+            <option value="South Korea">韓國</option>
+            </select>
+
+        </div>
+
+
+
+        <div class="items item2">
+            <p style="font-size:20px;" id="currentDate"></p>
+            <span id="country"></span>
+            <img src="" id="flag">
+        </div>
+
+        <div class="items item3"> <i class="fas fa-chevron-circle-up"> </i> 今日確診人數:
+            <span id="today"></span>
+        </div>
+
+        <div class="items item4"> <i class="far fa-frown"></i> 今日死亡人數:
+            <span id="death"></span>
+        </div>
+
+        <div class="items item5"> <i class="fas fa-globe"></i> 總體個案人數:
+            <span id="total"></span>
+        </div>
+    
+        <div class="items item6"><i class="fas fa-fighter-jet"></i> 活躍人數:
+            <span id="excting"></span>
+        </div>
+    
+        <div class="items item7"><i class="fas fa-tag"></i> 痊愈人數:
+            <span id="cruel"></span>
+        </div>
+    
+        <div class="items item8"> <i class="far fa-hand-paper"></i> 已篩檢總人數:
+            <span id="checking"></span>
+        </div>
+    
+        <div class="items item9"> <i class="far fa-meh"></i> 總死亡人數:
+            <span id="pass"></span>
+        </div>
+    
+        <div class="items item10">
+            <i class="fab fa-sellsy"></i> 總體死亡率:
+            <span id="rate"></span> 
+        </div>
+    </div>  
+    
+
+ <footer>
+  <p>版權所有@蛋炒牛奶</p>
+</footer> 
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+
+function countrySelect(){ 
+    var x =document.getElementById("mySelect").value;
+
+
+
+
+    var link = "https://corona.lmao.ninja/v2/countries/"+x;
+   
+    fetch(link)
+    .then((response) => {
+        return response.json();
+     })
+
+     .then((data) => {
+        var total=parseFloat(data.cases);
+        var pass=parseFloat(data.deaths);
+        var rate=((pass/total).toFixed(4))*100+'%';
+       
+
+        document.getElementById("country").innerHTML=data.country;
+        document.getElementById("today").innerHTML=data.todayCases.toLocaleString();
+        document.getElementById("death").innerHTML=data.todayDeaths.toLocaleString();
+        document.getElementById("total").innerHTML=data.cases.toLocaleString();
+        document.getElementById("rate").innerHTML= rate;
+        document.getElementById("excting").innerHTML=data.active.toLocaleString();
+        document.getElementById("cruel").innerHTML=data.recovered.toLocaleString();
+        document.getElementById("checking").innerHTML=data.tests.toLocaleString();
+        document.getElementById("pass").innerHTML=data.deaths.toLocaleString();
+        document.getElementById("flag").src=data.countryInfo.flag;     
+     
+     });
+}
+
+</script>

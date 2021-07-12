@@ -95,6 +95,8 @@ function countrySelect(){
      .then((data) => {
         var total=parseFloat(data.cases);
         var pass=parseFloat(data.deaths);
+        
+        //小數四位數進位        
         var rate=((pass/total).toFixed(4))*100+'%';
        
 

@@ -6,22 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid-19 簡易式疫情現況</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">  <!--連接圖標資料庫-->>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">  <!--連接圖標資料庫-->
 </head>
-<body onload="countrySelect()">
+<body onload="countrySelect()"> 
     
     <div class="container-grid">
         <div class="items item1">
             <h3>Covid-19 簡易疫情現況系統</h3>
-            <select id="mySelect" class="dropdown" onchange="countrySelect()">
+            <select id="mySelect" class="dropdown" onchange="countrySelect()" >
 
-                
+
+
        
-            <option value="Taiwan">台灣</option>
-            <option value="USA">美國</option>
-            <option value="China">中國大陸</option>
-            <option value="Japan">日本</option>
-            <option value="South Korea">韓國</option>
+            <option value="Taiwan"> 台灣</option>
+            <option value="USA"> 美國</option>
+            <option value="China"> 中國大陸</option>
+            <option value="Japan"> 日本</option>
+            <option value="South Korea"> 韓國</option>
             </select>
 
         </div>
@@ -29,17 +30,20 @@
 
 
         <div class="items item2">
-            <p style="font-size:20px;" id="currentDate"></p>
-            <span id="country"></span>
-            <img src="" id="flag">
+            <p style="font-size:15px;" ></p>
+            <p  id="currentDate"> </p>            
+            <span id="country"> </span>
+            <img src= ""  id="flag" >
         </div>
 
         <div class="items item3"> <i class="fas fa-chevron-circle-up"> </i> 今日確診人數:
             <span id="today"></span>
+        <div></div>若為0，即為今日系統未更新
         </div>
 
         <div class="items item4"> <i class="far fa-frown"></i> 今日死亡人數:
             <span id="death"></span>
+            <div></div>若為0，即為今日系統未更新            
         </div>
 
         <div class="items item5"> <i class="fas fa-globe"></i> 總體個案人數:
@@ -69,9 +73,14 @@
     </div>  
     
 
+
+    
  <footer>
   <p>版權所有@蛋炒牛奶</p>
 </footer> 
+<span id="busuanzi_container_site_uv">
+    本站瀏覽次數<span id="busuanzi_value_site_uv"></span>人次
+  </span>
 </body>
 
 </html>
@@ -95,16 +104,14 @@ function countrySelect(){
      .then((data) => {
         var total=parseFloat(data.cases);
         var pass=parseFloat(data.deaths);
-        
-        //小數四位數進位        
-        var rate=((pass/total).toFixed(4))*100+'%';
-       
+        //小數進位 2  
+        var rate=((pass/total)*100).toFixed(2) +'%';
 
         document.getElementById("country").innerHTML=data.country;
         document.getElementById("today").innerHTML=data.todayCases.toLocaleString();
         document.getElementById("death").innerHTML=data.todayDeaths.toLocaleString();
         document.getElementById("total").innerHTML=data.cases.toLocaleString();
-        document.getElementById("rate").innerHTML= rate;
+        document.getElementById("rate").innerHTML=rate;
         document.getElementById("excting").innerHTML=data.active.toLocaleString();
         document.getElementById("cruel").innerHTML=data.recovered.toLocaleString();
         document.getElementById("checking").innerHTML=data.tests.toLocaleString();

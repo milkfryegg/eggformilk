@@ -21,9 +21,9 @@ grid-row-gap: 10px;
 
 .items{
 padding:25px;
-font-size:  20px;
+font-size:20px;
  color:bisque;
- text-align: left;
+ text-align: center;
 }
 .item1{
 background-color: crimson;
